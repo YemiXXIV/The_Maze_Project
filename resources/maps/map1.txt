@@ -1,0 +1,88 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define MAP_WIDTH 21
+#define MAP_HEIGHT 11
+
+void generate_maze(char maze[MAP_HEIGHT][MAP_WIDTH]) {
+    // Initialize maze with walls
+    for (int y = 0; y < MAP_HEIGHT; y++) {
+        for (int x = 0; x < MAP_WIDTH; x++) {
+            maze[y][x] = '#';
+        }
+    }
+
+    // Choose a random starting point
+    int startX = rand() % (MAP_WIDTH - 2) + 1;
+    int startY = rand() % (MAP_HEIGHT - 2) + 1;
+    maze[startY][startX] = 'S';
+
+    // Choose a random ending point
+    int endX = rand() % (MAP_WIDTH - 2) + 1;
+    int endY = rand() % (MAP_HEIGHT - 2) + 1;
+    while (endX == startX && endY == startY) {
+        endX = rand() % (MAP_WIDTH - 2) + 1;
+        endY = rand() % (MAP_HEIGHT - 2) + 1;
+    }
+    maze[endY][endX] = 'E';
+
+    // Create a solvable maze using Recursive Backtracking
+    int directions[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    int dirIndices[4] = {0, 1, 2, 3};
+    int stack[MAP_HEIGHT * MAP_WIDTH][2];
+    int stackTop = 0;
+
+    int x = startX;
+    int y = startY;
+    maze[y][x] = '.';
+
+    while (stackTop > 0 || x!= endX || y!= endY) {
+        int dirIndex = rand() % 4;
+        int newX = x + directions[dirIndices[dirIndex]][0];
+        int newY = y + directions[dirIndices[dirIndex]][1];
+
+        if (newX >= 1 && newX < MAP_WIDTH - 1 && newY >= 1 && newY < MAP_HEIGHT - 1 && maze[newY][newX] == '#') {
+            maze[newY][newX] = '.';
+            maze[y + (newY - y) / 2][x + (newX - x) / 2] = '.';
+
+            stack[stackTop][0] = x;
+            stack[stackTop][1] = y;
+            stackTop++;
+
+            x = newX;
+            y = newY;
+        } else {
+            for (int i = 0; i < 4; i++) {
+                dirIndices[i] = (dirIndices[i] + 1) % 4;
+            }
+        }
+
+        if (stackTop > 0 && (x == endX && y == endY)) {
+            break;
+        }
+
+        if (stackTop > 0) {
+            stackTop--;
+            x = stack[stackTop][0];
+            y = stack[stackTop][1];
+        }
+    }
+
+    // Save the maze to a file
+    FILE *fp = fopen("maps/map1.txt", "w");
+    for (int y = 0; y < MAP_HEIGHT; y++) {
+        for (int x = 0; x < MAP_WIDTH; x++) {
+            fprintf(fp, "%c", maze[y][x]);
+        }
+        fprintf(fp, "\n");
+    }
+    fclose(fp);
+}
+
+int main() {
+    srand(time(NULL));
+    char maze[MAP_HEIGHT][MAP_WIDTH];
+    generate_maze(maze);
+    return 0;
+}
