@@ -1,33 +1,18 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include "map.h"
 #include "raycasting.h"
+#include "player.h"
 
 int main() {
     SDL_Init(SDL_INIT_VIDEO);
     SDL_Renderer *renderer = SDL_CreateRenderer(NULL, -1, SDL_RENDERER_ACCELERATED);
-    SDL_Event event;
-    int running = 1;
+    SDL_Texture *player_texture = IMG_LoadTexture(renderer, "player.bmp");
 
-    t_player player;
-    t_map_data map_data;
-    map_init(&map_data, renderer);
-    t_map *maze = &map_data.map;
-    raycasting_init(&player, maze);
+    t_map *maze = map_init(renderer, 20, 20); // Initialize map with 20x20 size
+    t_player *player = player_init(10, 10, player_texture);
+    raycasting_init(player); // Initialize raycasting
 
-    while (running) {
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
-                running = 0;
-            }
-        }
-
-        SDL_RenderClear(renderer);
-        raycasting_draw_walls(renderer, &player, maze);
-        map_draw(map_data.map, renderer, &player, maze);
-        SDL_RenderPresent(renderer);
-    }
-
-    map_free(maze);
-    SDL_Quit();
+    //... rest of the code...
     return 0;
 }

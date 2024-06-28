@@ -1,9 +1,9 @@
 #ifndef WALL_H
 #define WALL_H
 
-#include <SDL2/SDL_render.h>
+#include <SDL2/SDL.h>
 
-typedef struct s_wall {
+typedef struct {
     SDL_Texture *texture;
     float x;
     float y;
@@ -14,4 +14,4 @@ typedef struct s_wall {
 void wall_init(t_wall *wall, SDL_Renderer *renderer, float x, float y, float width, float height);
 void wall_draw(t_wall *wall, SDL_Renderer *renderer);
 
-#endif /* WALL_H */
+#endif  // WALL_H
