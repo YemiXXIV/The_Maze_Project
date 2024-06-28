@@ -1,57 +1,31 @@
-// maze.c
-
 #include "maze.h"
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-Maze *maze_load(const char *filename) {
-    Maze *maze = malloc(sizeof(Maze));
-    if (!maze) return NULL;
+t_map *maze_init(void)
+{
+	t_map *maze = malloc(sizeof(t_map));
 
-    FILE *file = fopen(filename, "r");
-    if (!file) {
-        free(maze);
-        return NULL;
-    }
+	maze->width = MAP_WIDTH;
+	maze->height = MAP_HEIGHT;
+	maze->data = malloc(MAP_HEIGHT * sizeof(char *));
 
-    fscanf(file, "%d %d", &maze->width, &maze->height);
+	for (int i = 0; i < MAP_HEIGHT; i++)
+	{
+		maze->data[i] = malloc(MAP_WIDTH * sizeof(char));
+	}
 
-    maze->cells = malloc(maze->height * sizeof(char *));
-    for (int i = 0; i < maze->height; i++) {
-        maze->cells[i] = malloc(maze->width * sizeof(char));
-    }
+	// Initialize map data here
 
-    for (int i = 0; i < maze->height; i++) {
-        for (int j = 0; j < maze->width; j++) {
-            fscanf(file, " %c", &maze->cells[i][j]);
-        }
-    }
-
-    fclose(file);
-    return maze;
+	return maze;
 }
 
-void maze_free(Maze *maze) {
-    if (!maze) return;
-
-    for (int i = 0; i < maze->height; i++) {
-        free(maze->cells[i]);
-    }
-    free(maze->cells);
-    free(maze);
-}
-
-char maze_get_cell(Maze *maze, int x, int y) {
-    if (x < 0 || x >= maze->width || y < 0 || y >= maze->height) {
-        return '#'; // out of bounds, return wall
-    }
-    return maze->cells[y][x];
-}
-
-void maze_set_cell(Maze *maze, int x, int y, char value) {
-    if (x < 0 || x >= maze->width || y < 0 || y >= maze->height) {
-        return; // out of bounds, do nothing
-    }
-    maze->cells[y][x] = value;
+void maze_free(t_map *maze)
+{
+	for (int i = 0; i < MAP_HEIGHT; i++)
+	{
+		free(maze->data[i]);
+	}
+	free(maze->data);
+	free(maze);
 }

@@ -1,70 +1,33 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "maze.h"
+#include <SDL2/SDL.h>
+#include "map.h"
+#include "raycasting.h"
 
 int main() {
-    // Initialize the game
-    printf("Welcome to the Maze Game!\n");
+    SDL_Init(SDL_INIT_VIDEO);
+    SDL_Renderer *renderer = SDL_CreateRenderer(NULL, -1, SDL_RENDERER_ACCELERATED);
+    SDL_Event event;
+    int running = 1;
 
-    // Create a new maze
-    Maze *maze = create_maze("maps/map1.txt");
+    t_player player;
+    t_map_data map_data;
+    map_init(&map_data, renderer);
+    t_map *maze = &map_data.map;
+    raycasting_init(&player, maze);
 
-    if (maze == NULL) {
-        printf("Error: Unable to create maze.\n");
-        return 1;
+    while (running) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                running = 0;
+            }
+        }
+
+        SDL_RenderClear(renderer);
+        raycasting_draw_walls(renderer, &player, maze);
+        map_draw(map_data.map, renderer, &player, maze);
+        SDL_RenderPresent(renderer);
     }
 
-    // Print the maze
-    printf("Maze:\n");
-    print_maze(maze);
-
-    // Play the game
-    int player_x = 0;
-    int player_y = 0;
-    while (1) {
-        // Get user input
-        char input;
-        printf("Enter a direction (N/S/E/W): ");
-        scanf(" %c", &input);
-
-        // Move the player
-        switch (input) {
-            case 'N':
-                player_y--;
-                break;
-            case 'S':
-                player_y++;
-                break;
-            case 'E':
-                player_x++;
-                break;
-            case 'W':
-                player_x--;
-                break;
-            default:
-                printf("Invalid input. Try again!\n");
-                continue;
-        }
-
-        // Check if the player is still in the maze
-        if (player_x < 0 || player_x >= maze->width || player_y < 0 || player_y >= maze->height) {
-            printf("You've reached the edge of the maze! Game over.\n");
-            break;
-        }
-
-        // Check if the player has reached the goal
-        if (maze->grid[player_y][player_x] == GOAL) {
-            printf("Congratulations! You've reached the goal!\n");
-            break;
-        }
-
-        // Print the updated maze
-        printf("Maze:\n");
-        print_maze(maze);
-    }
-
-    // Clean up
-    free_maze(maze);
-
+    map_free(maze);
+    SDL_Quit();
     return 0;
 }
