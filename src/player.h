@@ -1,15 +1,9 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <SDL2/SDL.h>
+#include "types.h"
 
-typedef struct {
-    int x;
-    int y;
-    SDL_Texture *texture;
-    float angle;
-} t_player;
-
-t_player *player_init(int x, int y, SDL_Texture *texture);
+void player_init(t_player *player, int x, int y, int direction);
+void player_move(t_player *player, t_map *map, int dx, int dy);
 
 #endif  // PLAYER_H

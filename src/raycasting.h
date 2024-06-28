@@ -1,8 +1,9 @@
 #ifndef RAYCASTING_H
 #define RAYCASTING_H
 
-#include "player.h"
+#include "types.h"
+#include "map.h"
 
-void raycasting_init(t_player *player);
+void raycasting(t_map *map, t_player *player);
 
 #endif  // RAYCASTING_H
