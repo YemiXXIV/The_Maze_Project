@@ -1,6 +1,9 @@
 #ifndef MAP_H
 #define MAP_H
 
+#include <SDL2/SDL.h>
+#include "player.h"
+
 typedef enum {
     MAP_SPACE,
     MAP_WALL

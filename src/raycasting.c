@@ -1,14 +1,13 @@
 #include "raycasting.h"
-#include "maze.h"
+#include "map.h"
+#include "player.h"
 #include <SDL2/SDL.h>
+#include <math.h>
 
-void raycasting_init(t_player *player, t_map *maze) {
-    player->x = 10.0f;
-    player->y = 10.0f;
+void raycasting_init(t_player *player) {
     player->angle = 0.0f;
 }
 
 void raycasting_draw_walls(SDL_Renderer *renderer, t_player *player, t_map *maze) {
-    // Raycasting algorithm implementation here
-    // Draw walls on the renderer
+    // Your implementation here
 }
