@@ -1,35 +1,97 @@
-#include "map.h"
-#include "player.h"
-#include "raycasting.h"
-#include <SDL2/SDL.h>
+#include "../headers/header.h"
 
-int main() {
-    SDL_Init(SDL_INIT_VIDEO);
-    SDL_Window *window = SDL_CreateWindow("Raycasting", 100, 100, 640, 480, SDL_WINDOW_SHOWN);
-    SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+bool GameRunning = false;
+int TicksLastFrame;
+player_t player;
 
-    t_map *map = map_init(renderer, 20, 20);
-    t_player player;
-    player_init(&player, 10, 10, 0);
+/**
+ * setup_game - initialize player variables and load wall textures
+ *
+*/
 
-    int running = 1;
-    while (running) {
-        SDL_Event event;
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
-                running = 0;
-            }
-        }
+void setup_game(void)
+{
 
-        SDL_RenderClear(renderer);
-        map_draw(map, renderer, &player);
-        raycasting(map, &player);
-        SDL_RenderPresent(renderer);
-    }
+	player.x = SCREEN_WIDTH / 2;
+	player.y = SCREEN_HEIGHT / 2;
+	player.width = 1;
+	player.height = 30;
+	player.walkDirection = 0;
+	player.walkSpeed = 100;
+	player.turnDirection = 0;
+	player.turnSpeed = 45 * (PI / 180);
+	player.rotationAngle = PI / 2;
+	WallTexturesready();
+}
 
-    map_free(map);
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-    return 0;
+
+/**
+ * update_game - update_game delta time, the ticks last frame
+ *          the player movement and the ray casting
+ *
+*/
+void update_game(void)
+{
+	float DeltaTime;
+	int timeToWait = FRAME_TIME_LENGTH - (SDL_GetTicks() - TicksLastFrame);
+
+	if (timeToWait > 0 && timeToWait <= FRAME_TIME_LENGTH)
+	{
+		SDL_Delay(timeToWait);
+	}
+	DeltaTime = (SDL_GetTicks() - TicksLastFrame) / 1000.0f;
+
+	TicksLastFrame = SDL_GetTicks();
+
+	movePlayer(DeltaTime);
+	castAllRays();
+}
+
+/**
+ * render - calls all functions needed for on-screen rendering
+ *
+*/
+
+void render_game(void)
+{
+	clearColorBuffer(0xFF000000);
+
+	renderWall();
+
+	renderMap();
+	renderRays();
+	renderPlayer();
+
+	renderColorBuffer();
+}
+
+/**
+ * Destroy - free wall textures and destroy window
+ *
+*/
+void destroy_game(void)
+{
+	freeWallTextures();
+	destroyWindow();
+}
+
+/**
+ * main - main function
+ * Return: 0
+*/
+
+int main(void)
+{
+	GameRunning = initializeWindow();
+
+	setup_game();
+
+	while (GameRunning)
+	{
+		handleInput();
+		update_game();
+		render_game();
+	}
+	destroy_game();
+	return (0);
 }

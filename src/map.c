@@ -1,37 +1,94 @@
-#include "map.h"
-#include <stdlib.h>
-#include <stdio.h>
+#include "../headers/header.h"
 
-t_map *map_init(SDL_Renderer *renderer, int width, int height) {
-    t_map *map = malloc(sizeof(t_map));
-    map->width = width;
-    map->height = height;
-    map->grid = malloc(width * sizeof(t_point *));
-    for (int i = 0; i < width; i++) {
-        map->grid[i] = malloc(height * sizeof(t_point));
-    }
-    // Initialize map grid here
-    return map;
+static const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
+	{6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6},
+	{6, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 6},
+	{6, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 6, 0, 0, 0, 6, 0, 0, 0, 6},
+	{6, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 6, 0, 7, 7, 0, 0, 0, 0, 6},
+	{6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 7, 0, 6},
+	{6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 6},
+	{6, 0, 0, 0, 0, 0, 7, 7, 7, 0, 0, 1, 0, 0, 0, 0, 7, 7, 0, 6},
+	{6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6},
+	{6, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1, 0, 6},
+	{6, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1, 0, 6},
+	{6, 0, 0, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6},
+	{6, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6},
+	{6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6}
+};
+
+/**
+ * DetectCollision - Checks if there could be a collision
+ * with the wall in the next player advance
+ * @x: next x coordinate
+ * @y: next y coordinate
+ * Return: true if collision is detected, false otherwise
+*/
+
+bool DetectCollision(float x, float y)
+{
+	int mapGridX, mapGridY;
+
+	if (x < 0 || x >= MAP_NUM_COLS * TILE_SIZE ||
+			y < 0 || y >= MAP_NUM_ROWS * TILE_SIZE)
+		return (true);
+
+	mapGridX = floor(x / TILE_SIZE);
+	mapGridY = floor(y / TILE_SIZE);
+	return (map[mapGridY][mapGridX] != 0);
 }
 
-void map_draw(t_map *map, SDL_Renderer *renderer, t_player *player) {
-    // Draw the map here
-    for (int i = 0; i < map->width; i++) {
-        for (int j = 0; j < map->height; j++) {
-            // Draw a rectangle for each cell in the grid
-            SDL_Rect rect = {i * 20, j * 20, 20, 20};
-            SDL_RenderFillRect(renderer, &rect);
-        }
-    }
-    // Draw the player here
-    SDL_Rect player_rect = {player->x * 20, player->y * 20, 20, 20};
-    SDL_RenderFillRect(renderer, &player_rect);
+/**
+ * isInsideMap - check if we continue within the map
+ * @x: next x coordinate
+ * @y: next y coordinate
+ * @Return: true if it is within the map, false otherwise
+*/
+
+bool isInsideMap(float x, float y)
+{
+	return (x >= 0 && x <= MAP_NUM_COLS * TILE_SIZE &&
+				y >= 0 && y <= MAP_NUM_ROWS * TILE_SIZE);
 }
 
-void map_free(t_map *map) {
-    for (int i = 0; i < map->width; i++) {
-        free(map->grid[i]);
-    }
-    free(map->grid);
-    free(map);
+/**
+ * getMapValue - check if we continue within the map
+ * @row: map row to check
+ * @col: map column to check
+ * @Return: The position value in the map
+*/
+
+int getMapValue(int row, int col)
+{
+
+	return (map[row][col]);
+
+}
+
+/**
+ * renderMap - render the map
+ *
+*/
+
+void renderMap(void)
+{
+	int i, j, tileX, tileY;
+	color_t tileColor;
+
+	for (i = 0; i < MAP_NUM_ROWS; i++)
+	{
+		for (j = 0; j < MAP_NUM_COLS; j++)
+		{
+			tileX = j * TILE_SIZE;
+			tileY = i * TILE_SIZE;
+			tileColor = map[i][j] != 0 ? 0xFF0000FF : 0x00000000;  
+
+			drawRect(
+				tileX * MINIMAP_SCALE_FACTOR,
+				tileY * MINIMAP_SCALE_FACTOR,
+				TILE_SIZE * MINIMAP_SCALE_FACTOR,
+				TILE_SIZE * MINIMAP_SCALE_FACTOR,
+				tileColor
+			);
+		}
+	}
 }
