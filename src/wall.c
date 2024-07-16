@@ -1,10 +1,10 @@
 #include "../headers/header.h"
 
 /**
- * changeColorIntensity - change color intensity
+ * changeColorIntensity - To change color intensity
  * based on a factor value between 0 and 1
- * @factor: intensity factor
- * @color: color for intensity
+ * @factor: The intensity factor
+ * @color: The color for intensity
 */
 
 void changeColorIntensity(color_t *color, float factor)
@@ -18,10 +18,10 @@ void changeColorIntensity(color_t *color, float factor)
 }
 
 /**
- * renderFloor - render floor projection
+ * renderFloor - To render floor projection
  *
- * @WallBottomPixel: wall bottom pixel
- * @texelColor: texture color for current pixel
+ * @WallBottomPixel: The wall bottom pixel
+ * @texelColor: The texture color for current pixel
  * @x: current element in the rays array
 */
 
@@ -54,7 +54,7 @@ void renderFloor(int wallBottomPixel, color_t *texelColor, int x)
 }
 
 /**
- * renderCeil - render Ceil projection
+ * renderCeil - To render Ceil projection
  * @WallTopPixel: wall top pixel
  * @texelColor: texture color for current pixel
  * @x: current element in the rays array
@@ -62,21 +62,19 @@ void renderFloor(int wallBottomPixel, color_t *texelColor, int x)
 void renderCeil(int wallTopPixel, color_t *texelColor, int x)
 {
     int y;
+    
+    *texelColor = 0xFFFFFF00;
 
-    // Set texelColor to blue (0xFF0000FF) for each pixel in the ceiling
-    *texelColor = 0xFFFFFF00; // Blue color value
-
-    // Render the ceiling projection
+    
     for (y = 0; y < wallTopPixel; y++)
     {
-        // Draw the texel color on the screen
         drawPixel(x, y, *texelColor);
     }
 }
 
 
 /**
- * renderWall - render wall projection
+ * renderWall - To render wall projection
  *
 */
 void renderWall(void)

@@ -2,8 +2,8 @@
 
 
 /**
- * movePlayer - set the next position of the player
- * @DeltaTime: time elapsed since the last frame
+ * movePlayer - To set/lock the next position of the player
+ * @DeltaTime: The time elapsed since the last frame
 */
 
 void movePlayer(float DeltaTime)
@@ -24,7 +24,7 @@ void movePlayer(float DeltaTime)
 }
 
 /**
- * renderPlayer - render the player
+ * renderPlayer - To render the player
  *
 */
 

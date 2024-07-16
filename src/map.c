@@ -17,10 +17,10 @@ static const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
 };
 
 /**
- * DetectCollision - Checks if there could be a collision
- * with the wall in the next player advance
- * @x: next x coordinate
- * @y: next y coordinate
+ * DetectCollision - To checks if there has been a collision
+ * with the wall in the player advance
+ * @x: The next x coordinate
+ * @y: The next y coordinate
  * Return: true if collision is detected, false otherwise
 */
 
@@ -38,9 +38,9 @@ bool DetectCollision(float x, float y)
 }
 
 /**
- * isInsideMap - check if we continue within the map
- * @x: next x coordinate
- * @y: next y coordinate
+ * isInsideMap - To check if the player is still within the map
+ * @x: The next x coordinate
+ * @y: The next y coordinate
  * @Return: true if it is within the map, false otherwise
 */
 
@@ -51,9 +51,9 @@ bool isInsideMap(float x, float y)
 }
 
 /**
- * getMapValue - check if we continue within the map
- * @row: map row to check
- * @col: map column to check
+ * getMapValue - To check if the palyer continues within the map
+ * @row: The map row to check
+ * @col: THE map column to check
  * @Return: The position value in the map
 */
 
@@ -65,7 +65,7 @@ int getMapValue(int row, int col)
 }
 
 /**
- * renderMap - render the map
+ * renderMap - To render the map
  *
 */
 

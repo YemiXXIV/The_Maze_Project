@@ -1,6 +1,6 @@
-## Author :
+## Author:
 
-Bernie Amponsah <bernieamponsah2@gmail.com>
+Mustapha Yinusa <mustapha.yinusa@yahoo.com>
 
 
 # The Maze

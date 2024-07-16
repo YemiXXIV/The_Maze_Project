@@ -1,12 +1,12 @@
 #include "../headers/header.h"
 
 /**
- * drawRect - draw a rectangle
- * @x: x coordinate
- * @y: y coordinate
- * @width: rectangle width
- * @height: rectangle height
- * @color: pixel color
+ * drawRect - To draw a rectangle
+ * @x: The x coordinate
+ * @y: The y coordinate
+ * @width: The rectangle width
+ * @height: The rectangle height
+ * @color: The pixel color
 */
 
 void drawRect(int x, int y, int width, int height, color_t color)
@@ -19,12 +19,12 @@ void drawRect(int x, int y, int width, int height, color_t color)
 }
 
 /**
- * drawLine - draw a line
- * @x0: x coordinate init
- * @y0: y coordinate init
- * @x1: x coordinate init
- * @y1: y coordinate end
- * @color: pixel color
+ * drawLine - To draw a line
+ * @x0: The x coordinate init
+ * @y0: The y coordinate init
+ * @x1: The x coordinate init
+ * @y1: The y coordinate end
+ * @color: The pixel color
 */
 
 void drawLine(int x0, int y0, int x1, int y1, color_t color)

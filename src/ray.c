@@ -8,8 +8,8 @@ static int horzWallContent, vertWallContent;
 
 
 /**
- * horzIntersection - Finds horizontal intersection with the wall
- * @rayAngle: current ray angle
+ * horzIntersection - To find horizontal intersection with the wall
+ * @rayAngle: The current ray angle
  *
  */
 
@@ -53,8 +53,8 @@ void horzIntersection(float rayAngle)
 }
 
 /**
- * vertIntersection - Finds vertical intersection with the wall
- * @rayAngle: current ray angle
+ * vertIntersection - To find vertical intersection with the wall
+ * @rayAngle: The current ray angle
  *
  */
 
@@ -100,9 +100,9 @@ void vertIntersection(float rayAngle)
 }
 
 /**
- * castRay - casting of each ray
- * @rayAngle: current ray angle
- * @stripId: ray strip identifier
+ * castRay - To cast each ray
+ * @rayAngle: The current ray angle
+ * @stripId: The ray strip identifier
  */
 
 void castRay(float rayAngle, int stripId)
@@ -146,7 +146,7 @@ void castRay(float rayAngle, int stripId)
 }
 
 /**
- * castAllRays - cast of all rays
+ * castAllRays - To cast all rays
  *
  */
 
@@ -163,7 +163,7 @@ void castAllRays(void)
 }
 
 /**
- * renderRays - draw all the rays
+ * renderRays - To draw all the rays
  *
  */
 

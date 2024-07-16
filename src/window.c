@@ -6,7 +6,7 @@ static SDL_Texture *colorBufferTexture;
 static SDL_Window *window;
 
 /**
- * initializeWindow - Initialize window to display the maze
+ * initializeWindow - To initialize window to display the maze
  * Return: true in case of success, false if it fails
 */
 bool initializeWindow(void)
@@ -43,10 +43,8 @@ bool initializeWindow(void)
 	}
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 
-	/* allocate the total amount of bytes in memory to hold our colorbuffer */
 	colorBuffer = malloc(sizeof(color_t) * SCREEN_WIDTH * SCREEN_HEIGHT);
-
-	/* create an SDL_Texture to display the colorbuffer */
+	
 	colorBufferTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32,
 		SDL_TEXTUREACCESS_STREAMING, SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -54,7 +52,7 @@ bool initializeWindow(void)
 }
 
 /**
- * destroyWindow - destroy window when the game is over
+ * destroyWindow - To destroy the window when the game is over
  *
 */
 
@@ -69,7 +67,7 @@ void destroyWindow(void)
 
 
 /**
- * clearColorBuffer - clear buffer for every frame
+ * clearColorBuffer - To clear the buffer for every frame
  * @color: color buffer
 */
 
@@ -82,7 +80,7 @@ void clearColorBuffer(color_t color)
 }
 
 /**
- * renderColorBuffer - render buffer for every frame
+ * renderColorBuffer - To render the buffer for every frame
  *
 */
 
@@ -99,7 +97,7 @@ void renderColorBuffer(void)
 }
 
 /**
- * drawPixel - assign a color to each pixel
+ * drawPixel - To draw and assign a color to each pixel
  * @x: x pixel coordinate
  * @y: y pixel coordinate
  * @color: pixel color

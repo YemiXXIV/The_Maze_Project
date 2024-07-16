@@ -5,7 +5,7 @@ int TicksLastFrame;
 player_t player;
 
 /**
- * setup_game - initialize player variables and load wall textures
+ * setup_game - To initialize the player variables and wall textures.
  *
 */
 
@@ -26,8 +26,8 @@ void setup_game(void)
 
 
 /**
- * update_game - update_game delta time, the ticks last frame
- *          the player movement and the ray casting
+ * update_game - To update game delta time, the tick last frame,
+ * player movement, and ray casting
  *
 */
 void update_game(void)
@@ -48,7 +48,7 @@ void update_game(void)
 }
 
 /**
- * render - calls all functions needed for on-screen rendering
+ * render - To call all functions needed for on-screen rendering
  *
 */
 
@@ -66,7 +66,7 @@ void render_game(void)
 }
 
 /**
- * Destroy - free wall textures and destroy window
+ * Destroy - To free wall textures and destroy window
  *
 */
 void destroy_game(void)
@@ -76,7 +76,7 @@ void destroy_game(void)
 }
 
 /**
- * main - main function
+ * main - The main function
  * Return: 0
 */
 

@@ -1,8 +1,8 @@
 #include "../headers/header.h"
 
 /**
- * SDL_KEYDOWN_FUNC - process input when a key is down
- * @event: union that contains structures for the different event types
+ * SDL_KEYDOWN_FUNC - To process input when a key is pressed or clicked down
+ * @event: The structures for the different event types
 */
 
 void SDL_KEYDOWN_FUNC(SDL_Event event)
@@ -28,8 +28,8 @@ void SDL_KEYDOWN_FUNC(SDL_Event event)
 }
 
 /**
- * SDL_KEYUP_FUNC - process input when a key is up
- * @event: union that contains structures for the different event types
+ * SDL_KEYUP_FUNC - To process input when a key is not pressed or clicked
+ * @event: The structures for the different event types
 */
 
 void SDL_KEYUP_FUNC(SDL_Event event)
@@ -53,7 +53,7 @@ void SDL_KEYUP_FUNC(SDL_Event event)
 }
 
 /**
- * handleInput - process input from the keyboard
+ * handleInput - To process input from your keyboard
  *
 */
 void handleInput(void)

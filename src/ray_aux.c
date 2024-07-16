@@ -1,12 +1,12 @@
 #include "../headers/header.h"
 
 /**
- * distanceBetweenPoints - Finds horizontal intersection with the wall
- * @x1: x coordinate of the starting point
- * @y1: y coordinate oh the starting point
- * @x2: x coordinate of the end point
- * @y2: y coordinate of the end point
- * Return: the distance between two points
+ * distanceBetweenPoints - To find the horizontal intersection with the wall
+ * @x1: The x coordinate of the starting point
+ * @y1: The y coordinate oh the starting point
+ * @x2: The x coordinate of the end point
+ * @y2: The y coordinate of the end point
+ * Return: The distance between two points
  */
 
 float distanceBetweenPoints(float x1, float y1, float x2, float y2)
@@ -15,8 +15,8 @@ float distanceBetweenPoints(float x1, float y1, float x2, float y2)
 }
 
 /**
- * isRayFacingDown - check if the ray is facing down
- * @angle: current ray angle
+ * isRayFacingDown - To check if the ray is facing down
+ * @angle: The current ray angle
  * Return: true or false
  */
 
@@ -26,8 +26,8 @@ bool isRayFacingDown(float angle)
 }
 
 /**
- * isRayFacingUp - check if the ray is facing up
- * @angle: current ray angle
+ * isRayFacingUp - To check if the ray is facing up
+ * @angle: The current ray angle
  * Return: true or false
  */
 
@@ -37,8 +37,8 @@ bool isRayFacingUp(float angle)
 }
 
 /**
- * isRayFacingRight - check if the ray is facing to the right
- * @angle: current ray angle
+ * isRayFacingRight - To check if the ray is facing your right
+ * @angle: The current ray angle
  * Return: true or false
  */
 
